@@ -180,8 +180,8 @@ export default function KidTubePage() {
   // Show loading state while checking authentication
   if (isCheckingAuth) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900" />
+      <div className="min-h-screen bg-gradient-to-br from-purple-400 via-pink-400 to-orange-400 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white" />
       </div>
     )
   }
@@ -192,7 +192,7 @@ export default function KidTubePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4">
+    <div className="min-h-screen bg-gradient-to-br from-purple-400 via-pink-400 to-orange-400 p-4">
       <div className="max-w-6xl mx-auto">
         {/* Header with Logout */}
         <div className="text-center mb-12 relative">
@@ -200,27 +200,29 @@ export default function KidTubePage() {
             variant="ghost"
             size="sm"
             onClick={handleLogout}
-            className="absolute top-0 right-0 text-gray-500 hover:text-gray-700 hover:bg-gray-100"
+            className="absolute top-0 right-0 text-white/80 hover:text-white hover:bg-white/20 backdrop-blur-sm"
           >
             <LogOut className="h-4 w-4 mr-1" />
             Logout
           </Button>
-          <h1 className="text-4xl font-semibold text-gray-900 mb-3">KidTube</h1>
-          <p className="text-lg text-gray-600 font-normal">Find the perfect videos for your child</p>
+          <h1 className="text-6xl font-bold text-white mb-3 drop-shadow-lg">KidTube 🎬</h1>
+          <p className="text-xl text-white/90 font-medium drop-shadow">Find the perfect videos for your child</p>
         </div>
 
         {/* Form Card */}
-        <Card className="mb-8 border border-gray-200 shadow-sm">
-          <CardHeader className="border-b border-gray-100">
-            <CardTitle className="text-xl font-medium text-gray-900 text-center">Tell us about your child</CardTitle>
+        <Card className="mb-8 border-0 shadow-2xl bg-white/95 backdrop-blur-sm">
+          <CardHeader className="border-b border-purple-100 bg-gradient-to-r from-blue-50 to-purple-50">
+            <CardTitle className="text-2xl font-bold text-purple-800 text-center">
+              Tell us about your child ✨
+            </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-6 p-6">
+          <CardContent className="space-y-6 p-8">
             {/* Age and Sex Dropdowns */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700">Child's Age</label>
+                <label className="text-sm font-semibold text-purple-700">Child's Age 🎂</label>
                 <Select value={age} onValueChange={setAge}>
-                  <SelectTrigger className="h-11 border-gray-300 focus:border-gray-500 focus:ring-gray-500">
+                  <SelectTrigger className="h-12 border-2 border-purple-200 focus:border-purple-400 focus:ring-purple-400 bg-gradient-to-r from-blue-50 to-purple-50">
                     <SelectValue placeholder="Select age" />
                   </SelectTrigger>
                   <SelectContent>
@@ -234,9 +236,9 @@ export default function KidTubePage() {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700">Child's Gender</label>
+                <label className="text-sm font-semibold text-purple-700">Child's Gender 👶</label>
                 <Select value={sex} onValueChange={setSex}>
-                  <SelectTrigger className="h-11 border-gray-300 focus:border-gray-500 focus:ring-gray-500">
+                  <SelectTrigger className="h-12 border-2 border-purple-200 focus:border-purple-400 focus:ring-purple-400 bg-gradient-to-r from-pink-50 to-orange-50">
                     <SelectValue placeholder="Select gender" />
                   </SelectTrigger>
                   <SelectContent>
@@ -250,18 +252,24 @@ export default function KidTubePage() {
 
             {/* Interests Multi-select */}
             {availableInterests.length > 0 && (
-              <div className="space-y-3">
-                <label className="text-sm font-medium text-gray-700">Interests (select all that apply)</label>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+              <div className="space-y-4">
+                <label className="text-sm font-semibold text-purple-700">Interests (select all that apply) 🌟</label>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                   {availableInterests.map((interest) => (
-                    <div key={interest} className="flex items-center space-x-2">
+                    <div
+                      key={interest}
+                      className="flex items-center space-x-3 p-3 rounded-lg bg-gradient-to-r from-blue-50 to-purple-50 hover:from-blue-100 hover:to-purple-100 transition-all duration-200"
+                    >
                       <Checkbox
                         id={interest}
                         checked={interests.includes(interest)}
                         onCheckedChange={(checked) => handleInterestChange(interest, checked as boolean)}
-                        className="border-gray-300 data-[state=checked]:bg-gray-900 data-[state=checked]:border-gray-900"
+                        className="border-2 border-purple-300 data-[state=checked]:bg-gradient-to-r data-[state=checked]:from-purple-500 data-[state=checked]:to-pink-500 data-[state=checked]:border-purple-500"
                       />
-                      <label htmlFor={interest} className="text-sm font-medium text-gray-700 capitalize cursor-pointer">
+                      <label
+                        htmlFor={interest}
+                        className="text-sm font-semibold text-purple-700 capitalize cursor-pointer"
+                      >
                         {interest}
                       </label>
                     </div>
@@ -271,21 +279,21 @@ export default function KidTubePage() {
             )}
 
             {/* Submit Button */}
-            <div className="flex justify-center pt-4">
+            <div className="flex justify-center pt-6">
               <Button
                 onClick={handleSubmit}
                 disabled={isLoading || !age || !sex || interests.length === 0}
-                className="h-11 px-8 bg-gray-900 hover:bg-gray-800 text-white font-medium"
+                className="h-14 px-12 text-lg font-bold bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 hover:from-purple-600 hover:via-pink-600 hover:to-orange-600 text-white shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-200"
               >
                 {isLoading ? (
                   <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Finding Videos...
+                    <Loader2 className="mr-3 h-5 w-5 animate-spin" />
+                    Finding Amazing Videos...
                   </>
                 ) : (
                   <>
-                    <Play className="mr-2 h-4 w-4" />
-                    Get Video Recommendations
+                    <Play className="mr-3 h-5 w-5" />
+                    Get Video Recommendations 🚀
                   </>
                 )}
               </Button>
@@ -295,18 +303,18 @@ export default function KidTubePage() {
 
         {/* Debug Window */}
         {Object.keys(debugData).length > 0 && (
-          <Card className="mb-8 border border-gray-200 shadow-sm">
-            <CardHeader className="pb-3 border-b border-gray-100">
+          <Card className="mb-8 border-0 shadow-xl bg-orange-50/90 backdrop-blur-sm">
+            <CardHeader className="pb-3 border-b border-orange-200">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-lg font-medium text-gray-900 flex items-center">
-                  <Code className="mr-2 h-4 w-4" />
-                  Debug Information
+                <CardTitle className="text-lg font-bold text-orange-800 flex items-center">
+                  <Code className="mr-2 h-5 w-5" />
+                  Debug Information 🔧
                 </CardTitle>
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={() => setShowDebug(!showDebug)}
-                  className="text-gray-500 hover:text-gray-700 hover:bg-gray-100"
+                  className="text-orange-600 hover:text-orange-800 hover:bg-orange-100"
                 >
                   {showDebug ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
                 </Button>
@@ -316,8 +324,8 @@ export default function KidTubePage() {
               <CardContent className="space-y-4 p-6">
                 {debugData.openaiRequest && (
                   <div>
-                    <h4 className="font-medium text-sm mb-2 text-gray-800">OpenAI Request:</h4>
-                    <pre className="bg-gray-50 p-3 rounded border border-gray-200 text-xs overflow-x-auto">
+                    <h4 className="font-bold text-sm mb-2 text-orange-800">OpenAI Request:</h4>
+                    <pre className="bg-white/80 p-3 rounded-lg border-2 border-orange-200 text-xs overflow-x-auto">
                       {JSON.stringify(debugData.openaiRequest, null, 2)}
                     </pre>
                   </div>
@@ -325,8 +333,8 @@ export default function KidTubePage() {
 
                 {debugData.openaiResponse && (
                   <div>
-                    <h4 className="font-medium text-sm mb-2 text-gray-800">OpenAI Response:</h4>
-                    <pre className="bg-gray-50 p-3 rounded border border-gray-200 text-xs overflow-x-auto">
+                    <h4 className="font-bold text-sm mb-2 text-orange-800">OpenAI Response:</h4>
+                    <pre className="bg-white/80 p-3 rounded-lg border-2 border-orange-200 text-xs overflow-x-auto">
                       {JSON.stringify(debugData.openaiResponse, null, 2)}
                     </pre>
                   </div>
@@ -334,8 +342,8 @@ export default function KidTubePage() {
 
                 {debugData.youtubeQueries && (
                   <div>
-                    <h4 className="font-medium text-sm mb-2 text-gray-800">YouTube Search Queries:</h4>
-                    <pre className="bg-gray-50 p-3 rounded border border-gray-200 text-xs overflow-x-auto">
+                    <h4 className="font-bold text-sm mb-2 text-orange-800">YouTube Search Queries:</h4>
+                    <pre className="bg-white/80 p-3 rounded-lg border-2 border-orange-200 text-xs overflow-x-auto">
                       {JSON.stringify(debugData.youtubeQueries, null, 2)}
                     </pre>
                   </div>
@@ -343,8 +351,8 @@ export default function KidTubePage() {
 
                 {debugData.youtubeResults && (
                   <div>
-                    <h4 className="font-medium text-sm mb-2 text-gray-800">YouTube API Results:</h4>
-                    <pre className="bg-gray-50 p-3 rounded border border-gray-200 text-xs overflow-x-auto max-h-64">
+                    <h4 className="font-bold text-sm mb-2 text-orange-800">YouTube API Results:</h4>
+                    <pre className="bg-white/80 p-3 rounded-lg border-2 border-orange-200 text-xs overflow-x-auto max-h-64">
                       {JSON.stringify(debugData.youtubeResults, null, 2)}
                     </pre>
                   </div>
@@ -352,8 +360,8 @@ export default function KidTubePage() {
 
                 {debugData.error && (
                   <div>
-                    <h4 className="font-medium text-sm mb-2 text-red-800">Error:</h4>
-                    <pre className="bg-red-50 p-3 rounded border border-red-200 text-xs overflow-x-auto text-red-800">
+                    <h4 className="font-bold text-sm mb-2 text-red-800">Error:</h4>
+                    <pre className="bg-red-100 p-3 rounded-lg border-2 border-red-300 text-xs overflow-x-auto text-red-800">
                       {debugData.error}
                     </pre>
                   </div>
@@ -365,11 +373,11 @@ export default function KidTubePage() {
 
         {/* Results with Playlist Feature */}
         {recommendations.length > 0 && (
-          <Card className="border border-gray-200 shadow-sm">
-            <CardHeader className="border-b border-gray-100">
-              <CardTitle className="text-xl font-medium text-gray-900 text-center">Recommended Videos</CardTitle>
+          <Card className="border-0 shadow-2xl bg-white/95 backdrop-blur-sm">
+            <CardHeader className="border-b border-green-200 bg-gradient-to-r from-green-50 to-blue-50">
+              <CardTitle className="text-2xl font-bold text-green-800 text-center">Recommended Videos 🎥✨</CardTitle>
             </CardHeader>
-            <CardContent className="p-6">
+            <CardContent className="p-8">
               <VideoPlaylist recommendations={recommendations} onVideoClick={handleVideoClick} />
             </CardContent>
           </Card>

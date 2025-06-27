@@ -1,8 +1,8 @@
 "use client"
 
-import { X, User, ExternalLink } from "lucide-react"
-import { Button } from "@/components/ui/button"
 import { useEffect } from "react"
+import { Button } from "@/components/ui/button"
+import { X, ExternalLink } from "lucide-react"
 
 interface VideoRecommendation {
   title: string
@@ -19,11 +19,6 @@ interface VideoModalProps {
 }
 
 export function VideoModal({ video, onClose }: VideoModalProps) {
-  const getYouTubeVideoId = (url: string): string => {
-    const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\n?#]+)/)
-    return match ? match[1] : ""
-  }
-
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -44,45 +39,70 @@ export function VideoModal({ video, onClose }: VideoModalProps) {
 
   if (!video) return null
 
+  // Extract video ID from YouTube URL
+  const getVideoId = (url: string) => {
+    const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\n?#]+)/)
+    return match ? match[1] : null
+  }
+
+  const videoId = getVideoId(video.url)
+
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-hidden">
-        <div className="flex justify-between items-center p-4 border-b">
-          <h3 className="text-lg font-semibold truncate pr-4">{video.title}</h3>
-          <Button variant="ghost" size="sm" onClick={onClose} className="flex-shrink-0">
-            <X className="h-4 w-4" />
-          </Button>
-        </div>
-        <div className="aspect-video">
-          <iframe
-            width="100%"
-            height="100%"
-            src={`https://www.youtube.com/embed/${getYouTubeVideoId(video.url)}?autoplay=1&rel=0&modestbranding=1`}
-            title={video.title}
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            className="w-full h-full"
-          />
-        </div>
-        <div className="p-4">
-          <div className="flex items-center text-gray-500 text-sm mb-2">
-            <User className="h-3 w-3 mr-1" />
-            <span>{video.channelTitle}</span>
-            <span className="mx-2">•</span>
-            <span>{video.duration}</span>
-          </div>
-          <p className="text-gray-600 text-sm">{video.description}</p>
-          <div className="mt-4 flex gap-2">
-            <a
-              href={video.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors"
+    <div className="fixed inset-0 bg-gradient-to-br from-purple-900/80 via-pink-900/80 to-orange-900/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden border-4 border-white">
+        {/* Header */}
+        <div className="flex items-center justify-between p-6 border-b border-purple-100 bg-gradient-to-r from-purple-50 to-pink-50">
+          <h2 className="text-xl font-bold text-purple-800 truncate pr-4">{video.title}</h2>
+          <div className="flex gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => window.open(video.url, "_blank")}
+              className="border-2 border-blue-300 text-blue-700 hover:bg-blue-50 font-semibold"
             >
-              <ExternalLink className="mr-1 h-4 w-4" />
-              Open in YouTube
-            </a>
+              <ExternalLink className="h-4 w-4 mr-1" />
+              YouTube
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={onClose}
+              className="text-purple-600 hover:text-purple-800 hover:bg-purple-100"
+            >
+              <X className="h-5 w-5" />
+            </Button>
+          </div>
+        </div>
+
+        {/* Video Content */}
+        <div className="p-6 bg-gradient-to-br from-blue-50 to-purple-50">
+          {videoId ? (
+            <div className="aspect-video bg-black rounded-xl overflow-hidden shadow-xl">
+              <iframe
+                src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`}
+                title={video.title}
+                className="w-full h-full"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+          ) : (
+            <div className="aspect-video bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl flex items-center justify-center">
+              <p className="text-gray-500 font-medium">Unable to load video preview</p>
+            </div>
+          )}
+
+          {/* Video Info */}
+          <div className="mt-6 space-y-4">
+            <div className="flex items-center justify-between">
+              <p className="text-blue-600 font-semibold">
+                <span className="text-purple-600">Channel:</span> {video.channelTitle}
+              </p>
+              <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                {video.duration}
+              </span>
+            </div>
+            <p className="text-gray-700 leading-relaxed">{video.description}</p>
           </div>
         </div>
       </div>

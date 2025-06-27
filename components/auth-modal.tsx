@@ -41,20 +41,22 @@ export function AuthModal({ onAuthenticated }: AuthModalProps) {
   }
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <Card className="w-full max-w-md border border-gray-200 shadow-lg">
-        <CardHeader className="text-center border-b border-gray-100">
-          <div className="mx-auto mb-4 w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center">
-            <Lock className="h-6 w-6 text-gray-600" />
+    <div className="fixed inset-0 bg-gradient-to-br from-purple-900/50 via-pink-900/50 to-orange-900/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      <Card className="w-full max-w-md border-0 shadow-2xl bg-white/95 backdrop-blur-sm">
+        <CardHeader className="text-center border-b border-purple-100 bg-gradient-to-r from-purple-50 to-pink-50">
+          <div className="mx-auto mb-4 w-16 h-16 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full flex items-center justify-center shadow-lg">
+            <Lock className="h-8 w-8 text-white" />
           </div>
-          <CardTitle className="text-2xl font-semibold text-gray-900">Welcome to KidTube</CardTitle>
-          <p className="text-gray-600 text-sm font-normal">Please enter the password to continue</p>
+          <CardTitle className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+            Welcome to KidTube! 🎬
+          </CardTitle>
+          <p className="text-purple-600 text-base font-medium">Please enter the password to continue</p>
         </CardHeader>
-        <CardContent className="p-6">
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <label htmlFor="password" className="text-sm font-medium text-gray-700">
-                Password
+        <CardContent className="p-8">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="space-y-3">
+              <label htmlFor="password" className="text-sm font-bold text-purple-700">
+                Password 🔐
               </label>
               <div className="relative">
                 <Input
@@ -63,46 +65,50 @@ export function AuthModal({ onAuthenticated }: AuthModalProps) {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter password"
-                  className="pr-10 border-gray-300 focus:border-gray-500 focus:ring-gray-500"
+                  className="pr-12 h-12 border-2 border-purple-200 focus:border-purple-400 focus:ring-purple-400 bg-gradient-to-r from-purple-50 to-pink-50"
                   required
                 />
                 <Button
                   type="button"
                   variant="ghost"
                   size="sm"
-                  className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                  className="absolute right-0 top-0 h-full px-4 py-2 hover:bg-transparent"
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? (
-                    <EyeOff className="h-4 w-4 text-gray-400" />
+                    <EyeOff className="h-5 w-5 text-purple-400" />
                   ) : (
-                    <Eye className="h-4 w-4 text-gray-400" />
+                    <Eye className="h-5 w-5 text-purple-400" />
                   )}
                 </Button>
               </div>
             </div>
 
-            {error && <div className="text-red-600 text-sm bg-red-50 p-3 rounded border border-red-200">{error}</div>}
+            {error && (
+              <div className="text-red-700 text-sm bg-red-100 p-4 rounded-lg border-2 border-red-200 font-medium">
+                {error}
+              </div>
+            )}
 
             <Button
               type="submit"
-              className="w-full bg-gray-900 hover:bg-gray-800 font-medium"
+              className="w-full h-12 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 hover:from-purple-600 hover:via-pink-600 hover:to-orange-600 text-white font-bold text-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-200"
               disabled={isLoading || !password}
             >
               {isLoading ? (
                 <>
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2" />
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3" />
                   Verifying...
                 </>
               ) : (
-                "Enter KidTube"
+                "Enter KidTube 🚀"
               )}
             </Button>
           </form>
 
-          <div className="mt-6 text-center">
-            <p className="text-xs text-gray-500">
-              This is a protected demo site. Contact the administrator for access.
+          <div className="mt-8 text-center">
+            <p className="text-xs text-purple-500 font-medium">
+              This is a protected demo site. Contact the administrator for access. ✨
             </p>
           </div>
         </CardContent>
