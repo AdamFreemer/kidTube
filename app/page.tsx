@@ -205,8 +205,12 @@ export default function KidTubePage() {
             <LogOut className="h-4 w-4 mr-1" />
             Logout
           </Button>
-          <h1 className="text-6xl font-bold text-white mb-3 drop-shadow-lg">KidTube 🎬</h1>
-          <p className="text-xl text-white/90 font-medium drop-shadow">Find the perfect videos for your child</p>
+          <h1 className="text-6xl font-bold text-white mb-4 drop-shadow-lg">KidTube 🎬</h1>
+          <p className="text-xl text-white/90 font-medium drop-shadow mb-3">Find the perfect videos for your child</p>
+          <p className="text-lg text-white/80 font-normal drop-shadow max-w-4xl mx-auto leading-relaxed">
+            AI-powered recommendations with safe, curated content. No harmful algorithms, no endless scrolling — just
+            fun, educational videos perfectly matched to your child's interests! ✨
+          </p>
         </div>
 
         {/* Form Card */}
