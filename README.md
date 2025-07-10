@@ -1,4 +1,4 @@
-# KidTube
+# KidVid
 
 *Automatically synced with your [v0.dev](https://v0.dev) deployments*
 
@@ -7,5 +7,5 @@
 
 ## Overview
 
-KidTube 🎬
+KidVid 🎬
 Find the perfect videos for your child

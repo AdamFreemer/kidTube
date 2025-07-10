@@ -30,7 +30,7 @@ export function AuthModal({ onAuthenticated }: AuthModalProps) {
 
     if (password === STATIC_PASSWORD) {
       // Store authentication in localStorage
-      localStorage.setItem("kidtube-authenticated", "true")
+              localStorage.setItem("kidvid-authenticated", "true")
       onAuthenticated()
     } else {
       setError("Incorrect password. Please try again.")
@@ -48,7 +48,7 @@ export function AuthModal({ onAuthenticated }: AuthModalProps) {
             <Lock className="h-8 w-8 text-white" />
           </div>
           <CardTitle className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-            Welcome to KidTube! 🎬
+            Welcome to KidVid! 🎬
           </CardTitle>
           <p className="text-purple-600 text-base font-medium">Please enter the password to continue</p>
         </CardHeader>
@@ -101,7 +101,7 @@ export function AuthModal({ onAuthenticated }: AuthModalProps) {
                   Verifying...
                 </>
               ) : (
-                "Enter KidTube 🚀"
+                "Enter KidVid 🚀"
               )}
             </Button>
           </form>
